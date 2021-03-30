@@ -1,18 +1,26 @@
 const esbuild = require('esbuild')
+const pkg = require('./package.json')
 
-const package = 'geocode-earth-core'
+const banner = `/*
+Geocode Earth Core ${pkg.version}
+Copyright © ${new Date().getFullYear()} Cleared for Takeoff, Inc.
+*/`
+
 const opts = {
   entryPoints: ['src/index.js'],
   bundle: true,
   sourcemap: true,
   logLevel: 'info',
+  banner: {
+    js: banner
+  }
 }
 
 // ESM (Browser)
 esbuild.build({
   ...opts,
   format: 'esm',
-  outfile: `dist/${package}.esm.js`,
+  outfile: `dist/${pkg.name}.esm.js`,
 }).catch(() => process.exit(1))
 
 
@@ -20,5 +28,5 @@ esbuild.build({
 esbuild.build({
   ...opts,
   platform: 'node',
-  outfile: `dist/${package}.cjs.js`,
+  outfile: `dist/${pkg.name}.cjs.js`,
 }).catch(() => process.exit(1))
