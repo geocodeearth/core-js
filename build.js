@@ -20,13 +20,12 @@ const opts = {
 esbuild.build({
   ...opts,
   format: 'esm',
-  outfile: `dist/${pkg.name}.esm.js`,
+  outfile: `dist/${pkg.name}.esm.js`
 }).catch(() => process.exit(1))
-
 
 // CommonJS (Node)
 esbuild.build({
   ...opts,
   platform: 'node',
-  outfile: `dist/${pkg.name}.cjs.js`,
+  outfile: `dist/${pkg.name}.cjs.js`
 }).catch(() => process.exit(1))

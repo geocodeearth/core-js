@@ -19,6 +19,7 @@
     "build": "node build.js",
     "clean": "rm -rf dist",
     "lint": "standard",
+    "lint-fix": "standard --fix",
     "test": "jest"
   },
   "jest": {

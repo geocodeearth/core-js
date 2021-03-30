@@ -1,4 +1,4 @@
-import autocomplete from "./api/autocomplete"
+import autocomplete from './api/autocomplete'
 
 export {
   autocomplete
