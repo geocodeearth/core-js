@@ -1,0 +1,22 @@
+{
+  "name": "geocode-earth-core",
+  "version": "0.0.1",
+  "description": "Core API client for Geocode Earth",
+  "module": "dist/geocode-earth-core.esm.js",
+  "main": "dist/geocode-earth-core.cjs.js",
+  "files": [
+    "dist/*.js",
+    "dist/*.js.map"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.11.2"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mxlje",
+  "license": "MIT"
+}
