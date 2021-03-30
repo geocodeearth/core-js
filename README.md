@@ -13,7 +13,7 @@ We use [`esbuild`](https://esbuild.github.io/) to bundle the code. There are two
 1. ESM (for use in the browser)
 2. CommonJS (for use within Node)
 
-Tests use [jest](https://jestjs.io/).
+Tests use [jest](https://jestjs.io/). [Standard](https://standardjs.com/) is used for linting.
 
 ## Commands
 
@@ -26,6 +26,10 @@ $ npm test
 
 # removes dist folder
 $ npm run clean
+
+# run standard
+$ npm run lint
+$ npm run lint-fix # with auto fix
 ```
 
 ## Usage
