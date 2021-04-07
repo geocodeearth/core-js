@@ -1,5 +1,5 @@
-import autocomplete from './api/autocomplete'
+import createAutocomplete from './api/autocomplete'
 
 export {
-  autocomplete
+  createAutocomplete
 }
