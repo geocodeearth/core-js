@@ -69,22 +69,35 @@ const createAutocomplete = (apiKey, options = {}) => {
 
     return new Promise(
       function (resolve, reject) {
+        let rateLimit
+
         fetch(url)
-          .then(response => {
-            if (!response.ok) {
-              reject(response)
+          .then(res => {
+            rateLimit = {
+              delaySecond: parseInt(res.headers.get('X-Ratelimit-Delay-Second')),
+              limitSecond: parseInt(res.headers.get('X-Ratelimit-Limit-Second')),
+              remainingSecond: parseInt(res.headers.get('X-Ratelimit-Remaining-Second')),
+              usedSecond: parseInt(res.headers.get('X-Ratelimit-Used-Second'))
             }
 
-            return response
+            return res.json()
           })
-          .then(res => res.json())
-          .then(({features}) => {
+          .then(({ meta, results, features }) => {
+            if (meta?.status_code && results?.error) {
+              reject({
+                ...results.error,
+                statusCode: meta.status_code,
+                rateLimit
+              })
+            }
+
             if (current < requests) {
-              resolve({discard: true})
+              resolve({ discard: true })
             } else {
-              resolve({features})
+              resolve({ features, rateLimit })
             }
           })
+          .catch(reject)
       }
     )
   }
