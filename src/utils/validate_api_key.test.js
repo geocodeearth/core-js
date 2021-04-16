@@ -3,7 +3,7 @@ import validateApiKey from './validate_api_key'
 test('accepts valid keys', () => {
   const valid = [
     'ge-2dced32726723c0f',
-    'ge-4ade3c0cb1c0da239'
+    'ge-4ade3c0cb1c0da23'
   ]
 
   valid.forEach(k => {
@@ -17,6 +17,7 @@ test('rejects invalid keys', () => {
     'foo',
     'ge-foo',
     'ge-xxx123yyy456zzzz',
+    'ge-4ade3c0cb1c0da234ade3c0cb1c0da23',
     null,
     undefined,
   ]
