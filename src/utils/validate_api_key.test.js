@@ -17,9 +17,7 @@ test('rejects invalid keys', () => {
     'foo',
     'ge-foo',
     'ge-xxx123yyy456zzzz',
-    'ge-4ade3c0cb1c0da234ade3c0cb1c0da23',
-    null,
-    undefined,
+    'ge-4ade3c0cb1c0da234ade3c0cb1c0da23'
   ]
 
   invalid.forEach(k => {
