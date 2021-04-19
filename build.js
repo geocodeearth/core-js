@@ -9,7 +9,7 @@ const banner = `/**
 */`
 
 const opts = {
-  entryPoints: ['src/index.js'],
+  entryPoints: ['src/geocode-earth-core.ts'],
   bundle: true,
   sourcemap: true,
   logLevel: 'info',

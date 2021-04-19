@@ -1,10 +1,16 @@
 {
+  "include": [
+    "src/**/*.ts"
+  ],
   "compilerOptions": {
     "checkJs": true,
-    "noEmit": true,
+    "outFile": "dist/geocode-earth-core.d.ts",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "strict": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true
   }
 }

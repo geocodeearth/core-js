@@ -5,19 +5,21 @@
   "module": "dist/geocode-earth-core.esm.js",
   "main": "dist/geocode-earth-core.cjs.js",
   "files": [
-    "dist/*.js",
-    "dist/*.js.map"
+    "dist"
   ],
+  "types": "dist/geocode-earth-core.d.ts",
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "esbuild": "^0.11.2",
     "esbuild-jest": "^0.5.0",
     "jest": "^26.6.3",
-    "standard": "^16.0.3"
+    "standard": "^16.0.3",
+    "typescript": "^4.2.4"
   },
   "scripts": {
     "build": "node build.js",
+    "types": "tsc",
     "clean": "rm -rf dist",
     "lint": "standard",
     "lint-fix": "standard --fix",
