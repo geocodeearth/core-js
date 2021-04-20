@@ -1,19 +1,52 @@
 import validateApiKey from '../utils/validate_api_key'
 
 interface Options {
-  apiHost?: string;
-  apiEndpoint?: string;
-  apiVersion?: 'v1';
-  size?: number;
-  layers?: string[];
+  apiHost?: string
+  apiEndpoint?: string
+  apiVersion?: 'v1'
+  lang?: string
+  size?: number
+  sources?: (
+    'openstreetmap' |
+    'openaddresses' |
+    'geonames' |
+    'whosonfirst'
+  )[]
+  layers?: (
+    'address' |
+    'borough' |
+    'coarse' |
+    'country' |
+    'county' |
+    'localadmin' |
+    'locality' |
+    'macrocounty' |
+    'macroregion' |
+    'neighbourhood' |
+    'postalcode' |
+    'region' |
+    'street' |
+    'venue'
+  )[]
   boundary?: {
-    country?: string;
-    gid?: string;
-  };
+    country?: string
+    gid?: string
+    circle?: {
+      lat: number
+      lon: number
+      radius: number
+    }
+    rect?: {
+      minLon: number
+      maxLon: number
+      minLat: number
+      maxLat: number
+    }
+  }
   focus?: {
-    lat: number;
-    lon: number;
-  };
+    lat: number
+    lon: number
+  }
 }
 
 const defaultOptions: Options = {
@@ -46,10 +79,19 @@ const createAutocomplete = (apiKey: string, opts?: Options) => {
     type Query = {
       text: string;
       api_key: string;
+      lang?: string;
       size?: string;
       layers?: string;
+      sources?: string;
       ['boundary.country']?: string;
       ['boundary.gid']?: string;
+      ['boundary.circle.lat']?: string;
+      ['boundary.circle.lon']?: string;
+      ['boundary.circle.radius']?: string;
+      ['boundary.rect.min_lat']?: string;
+      ['boundary.rect.max_lon']?: string;
+      ['boundary.rect.min_lat']?: string;
+      ['boundary.rect.max_lat']?: string;
       ['focus.point.lat']?: string;
       ['focus.point.lon']?: string;
     }
@@ -57,6 +99,10 @@ const createAutocomplete = (apiKey: string, opts?: Options) => {
     const q: Query = {
       text,
       api_key: apiKey
+    }
+
+    if (options.lang) {
+      q.lang = options.lang
     }
 
     if (options.size) {
@@ -71,13 +117,30 @@ const createAutocomplete = (apiKey: string, opts?: Options) => {
       q['boundary.gid'] = options.boundary.gid
     }
 
-    if (options.focus?.lat && options.focus?.lon) {
+    if (options.boundary?.circle) {
+      q['boundary.circle.lat'] = options.boundary.circle.lat.toString()
+      q['boundary.circle.lon'] = options.boundary.circle.lon.toString()
+      q['boundary.circle.radius'] = options.boundary.circle.lon.toString()
+    }
+
+    if (options.boundary?.rect) {
+      q['boundary.rect.min_lat'] = options.boundary.rect.minLat.toString()
+      q['boundary.rect.max_lat'] = options.boundary.rect.maxLon.toString()
+      q['boundary.rect.min_lon'] = options.boundary.rect.minLon.toString()
+      q['boundary.rect.max_lon'] = options.boundary.rect.maxLon.toString()
+    }
+
+    if (options.focus) {
       q['focus.point.lat'] = options.focus.lat.toString()
       q['focus.point.lon'] = options.focus.lon.toString()
     }
 
-    if (Array.isArray(options.layers) && options.layers?.length > 0) {
-      q['layers'] = options.layers.map(l => l.trim()).join(',')
+    if (!!options.layers?.length) {
+      q.layers = options.layers.map(l => l.trim()).join(',')
+    }
+
+    if (!!options.sources?.length) {
+      q.sources = options.sources.map(l => l.trim()).join(',')
     }
 
     url.search = new URLSearchParams(q).toString()
