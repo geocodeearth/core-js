@@ -3,7 +3,7 @@ import validateApiKey from '../utils/validate_api_key'
 interface Options {
   apiHost?: string;
   apiEndpoint?: string;
-  apiVersion?: string;
+  apiVersion?: 'v1';
   size?: number;
   layers?: string[];
   boundary?: {
