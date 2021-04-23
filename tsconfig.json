@@ -3,6 +3,8 @@
     "src/**/*.ts"
   ],
   "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "target": "ESNext",
     "checkJs": true,
     "outFile": "dist/geocode-earth-core.d.ts",
     "declaration": true,
@@ -10,7 +12,6 @@
     "strict": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true
+    "forceConsistentCasingInFileNames": true
   }
 }
