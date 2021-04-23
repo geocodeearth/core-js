@@ -1,4 +1,4 @@
-import { Query } from '../api/params'
+import { Query } from '../api/autocomplete/params'
 import { Options, defaultOptions } from '../options'
 
 type Endpoint = 'autocomplete'

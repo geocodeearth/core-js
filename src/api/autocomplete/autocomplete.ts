@@ -1,7 +1,7 @@
-import validateApiKey from '../utils/validate_api_key'
+import validateApiKey from '../../utils/validate_api_key'
 import { Params, createQuery } from './params'
-import { Options } from '../options'
-import { createURL } from '../utils/url'
+import { Options } from '../../options'
+import { createURL } from '../../utils/url'
 
 const createAutocomplete = (
   apiKey: string,
