@@ -1,3 +1,4 @@
+// Params are a structured format for API params, which are converted to a Query
 export type Params = {
   lang?: string
   size?: number
@@ -44,6 +45,7 @@ export type Params = {
   }
 }
 
+// Params are converted to a Query, which is then used to generate a URL query string
 export type Query = {
   api_key: string,
   text: string,
@@ -85,5 +87,6 @@ export const createQuery = (apiKey: string, text: string, params: Params = {}): 
     'boundary.rect.max_lon': params.boundary?.rect?.maxLon?.toString()
   }
 
+  // don’t return empty values (null & undefined) as to not have ?size=undefined in the actual URL query
   return Object.fromEntries(Object.entries(q).filter(([_, v]) => v != null)) as Query
 }

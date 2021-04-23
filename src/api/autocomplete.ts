@@ -18,18 +18,18 @@ const createAutocomplete = (
   return async (text: string) => {
     // An autocomplete request promise resolves with a Result, which contains
     // the data from the API, rate limiting info, and whether or not it should be discarded
-    // as it was returned out of order
+    // if it was returned out of order
     type Result = {
-      features?: any;
-      discard?: boolean;
-      rateLimit?: RateLimitStatus;
+      features?: any
+      discard?: boolean
+      rateLimit?: RateLimitStatus
     }
 
     type RateLimitStatus = {
-      delaySecond: number;
-      limitSecond: number;
-      remainingSecond: number;
-      usedSecond: number;
+      delaySecond: number
+      limitSecond: number
+      remainingSecond: number
+      usedSecond: number
     }
 
     const current = requests = requests + 1
