@@ -8,6 +8,8 @@ test('paramsToQuery excludes empty fields', () => {
   }
 
   expect(createQuery('ge-abcabccbacbacbac', 'berlin', params)).toStrictEqual({
+    api_key: 'ge-abcabccbacbacbac',
+    text: 'berlin',
     lang: 'de'
   })
 })
