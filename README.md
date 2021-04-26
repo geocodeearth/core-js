@@ -1,10 +1,34 @@
 # Geocode Earth Core JS
 
-This repo currently contains demo code to show what the structure and build tooling for the core API client in JavaScript could look like.
+This repository contains the Geocode Earth Core API client for JavaScript. As it is still under development not all APIs are implemented yet and the API itself may change in the future.
 
-The idea is that this repo is only an API client and does not include UI functionality. It will be consumed by other libraries, like an autocomplete library that will implement the UI parts.
+## Implemented APIs
 
-**Important: The APIs are just an example and not actually implemented yet**
+- Autocomplete (`/autocomplete`)
+
+## Usage
+
+```js
+import { createAutocomplete } from 'geocode-earth-core'
+const autocomplete = createAutocomplete('ge-abc123')
+autocomplete('berlin').then(console.log)
+```
+
+### Params
+
+`createAutocomplete` accepts parameters as a second argument, for example:
+
+```js
+createAutocomplete('ge-abc123', {
+  size: 5,
+  focusPoint: {
+    lat: 52.520008,
+    lon: 13.404954
+  }
+})
+```
+
+All available parameters can be found in `src/api/autocomplete/params.ts`.
 
 ## Build tooling
 
@@ -29,26 +53,3 @@ $ npm run lint
 $ npm run lint-fix # with auto fix
 ```
 
-## Usage
-
-```js
-import { createAutocomplete } from 'geocode-earth-core'
-const autocomplete = createAutocomplete('ge-abc123')
-autocomplete('berlin').then(console.log)
-```
-
-### Params
-
-`createAutocomplete` accepts parameters as a second argument, for example:
-
-```js
-createAutocomplete('ge-abc123', {
-  size: 5,
-  focusPoint: {
-    lat: 52.520008,
-    lon: 13.404954
-  }
-})
-```
-
-All options can be found in `src/api/autocomplete/params.ts`.
