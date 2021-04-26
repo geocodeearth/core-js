@@ -31,19 +31,24 @@ $ npm run lint-fix # with auto fix
 
 ## Usage
 
-### ESM
+```js
+import { createAutocomplete } from 'geocode-earth-core'
+const autocomplete = createAutocomplete('ge-abc123')
+autocomplete('berlin').then(console.log)
+```
+
+### Params
+
+`createAutocomplete` accepts parameters as a second argument, for example:
 
 ```js
-import { autocomplete } from 'geocode-earth-core'
-autocomplete("Berlin")
+createAutocomplete('ge-abc123', {
+  size: 5,
+  focusPoint: {
+    lat: 52.520008,
+    lon: 13.404954
+  }
+})
 ```
 
-The ESM build can also be referenced _directly_ in the browser like so:
-
-```html
-<script type="module">
-  // or whatever path to the esm build
-  import { autocomplete } from "/dist/geocode-earth-core.esm.js"
-  console.log(autocomplete("Berlin"))
-</script>
-```
+All options can be found in `src/api/autocomplete/params.ts`.
