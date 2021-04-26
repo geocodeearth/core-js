@@ -8,26 +8,14 @@ const banner = `/**
  * @license MIT
 */`
 
-const opts = {
+esbuild.build({
   entryPoints: ['src/geocode-earth-core.ts'],
+  format: 'esm',
   bundle: true,
   sourcemap: true,
   logLevel: 'info',
   banner: {
     js: banner
-  }
-}
-
-// ESM (Browser)
-esbuild.build({
-  ...opts,
-  format: 'esm',
-  outfile: `dist/${pkg.name}.esm.js`
-}).catch(() => process.exit(1))
-
-// CommonJS (Node)
-esbuild.build({
-  ...opts,
-  platform: 'node',
-  outfile: `dist/${pkg.name}.cjs.js`
+  },
+  outfile: `dist/${pkg.name}.js`
 }).catch(() => process.exit(1))

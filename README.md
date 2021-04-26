@@ -8,12 +8,9 @@ The idea is that this repo is only an API client and does not include UI functio
 
 ## Build tooling
 
-We use [`esbuild`](https://esbuild.github.io/) to bundle the code. There are two build targets defined (see `build.js`):
-
-1. ESM (for use in the browser)
-2. CommonJS (for use within Node)
-
-Tests use [jest](https://jestjs.io/). [Standard](https://standardjs.com/) is used for linting.
+- We use [`esbuild`](https://esbuild.github.io/) to bundle the code
+- Tests use [jest](https://jestjs.io/)
+- [Standard](https://standardjs.com/) is used for linting.
 
 ## Commands
 
@@ -49,11 +46,4 @@ The ESM build can also be referenced _directly_ in the browser like so:
   import { autocomplete } from "/dist/geocode-earth-core.esm.js"
   console.log(autocomplete("Berlin"))
 </script>
-```
-
-### CommonJS (Node)
-
-```js
-const GeocodeEarth = require('geocode-earth-core')
-GeocodeEarth.autocomplete("Berlin")
 ```
