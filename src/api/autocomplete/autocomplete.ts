@@ -1,5 +1,6 @@
 import validateApiKey from '../../utils/validate_api_key'
 import { Params, createQuery } from './params'
+import { Result } from './result'
 import { Options } from '../../options'
 import { createURL } from '../../utils/url'
 
@@ -15,31 +16,15 @@ const createAutocomplete = (
   // keep track of how many requests we’ve sent
   // for discarding out of order responses
   let requests = 0
-  return async (text: string) => {
-    // An autocomplete request promise resolves with a Result, which contains
-    // the data from the API, rate limiting info, and whether or not it should be discarded
-    // if it was returned out of order
-    type Result = {
-      features?: any
-      discard?: boolean
-      rateLimit?: RateLimitStatus
-    }
-
-    type RateLimitStatus = {
-      delaySecond: number
-      limitSecond: number
-      remainingSecond: number
-      usedSecond: number
-    }
-
+  return async (text: string): Promise<Result> => {
     const current = requests = requests + 1
-    return new Promise<Result>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const url = createURL('autocomplete', createQuery(apiKey, text, params), options).toString()
-      let rateLimit: RateLimitStatus
+      const result: Result = {}
 
       fetch(url)
         .then(res => {
-          rateLimit = {
+          result.rateLimit = {
             delaySecond: parseInt(res.headers.get('X-Ratelimit-Delay-Second') || ''),
             limitSecond: parseInt(res.headers.get('X-Ratelimit-Limit-Second') || ''),
             remainingSecond: parseInt(res.headers.get('X-Ratelimit-Remaining-Second') || ''),
@@ -53,14 +38,14 @@ const createAutocomplete = (
             reject({
               ...results.error,
               statusCode: meta.status_code,
-              rateLimit
+              rateLimit: result.rateLimit
             })
           }
 
           if (current < requests) {
-            resolve({ discard: true })
+            resolve({ ...result, discard: true })
           } else {
-            resolve({ features, rateLimit })
+            resolve({ ...result, features })
           }
         })
         .catch(reject)
