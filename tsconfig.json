@@ -6,7 +6,7 @@
     "lib": ["ESNext", "DOM"],
     "target": "ESNext",
     "checkJs": true,
-    "outFile": "dist/geocode-earth-core.d.ts",
+    "outDir": "dist",
     "declaration": true,
     "emitDeclarationOnly": true,
     "strict": true,
