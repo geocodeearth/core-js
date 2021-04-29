@@ -10,6 +10,7 @@ const banner = `/**
 
 esbuild.build({
   entryPoints: ['src/geocode-earth-core.ts'],
+  outfile: 'dist/geocode-earth-core.esm.js',
   format: 'esm',
   bundle: true,
   sourcemap: true,
@@ -17,5 +18,4 @@ esbuild.build({
   banner: {
     js: banner
   },
-  outfile: `dist/${pkg.name}.js`
 }).catch(() => process.exit(1))
