@@ -8,7 +8,6 @@
     "dist"
   ],
   "types": "dist/geocode-earth-core.d.ts",
-  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "esbuild": "^0.11.2",
