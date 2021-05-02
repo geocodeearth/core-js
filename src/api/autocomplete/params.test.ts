@@ -4,7 +4,7 @@ test('paramsToQuery excludes empty fields', () => {
   const params: Params = {
     lang: 'de',
     layers: undefined,
-    sources: undefined,
+    sources: undefined
   }
 
   expect(createQuery('ge-abcabccbacbacbac', 'berlin', params)).toStrictEqual({

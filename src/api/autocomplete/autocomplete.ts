@@ -8,7 +8,7 @@ const createAutocomplete = (
   apiKey: string,
   params?: Params,
   options?: Options
-) => {
+): (text: string) => Promise<Result> => {
   if (!validateApiKey(apiKey)) {
     throw new Error('Invalid API key specified.')
   }
@@ -18,23 +18,23 @@ const createAutocomplete = (
   let requests = 0
   return async (text: string): Promise<Result> => {
     const current = requests = requests + 1
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       const url = createURL('autocomplete', createQuery(apiKey, text, params), options).toString()
       const result: Result = {}
 
       fetch(url)
-        .then(res => {
+        .then(async res => {
           result.rateLimit = {
-            delaySecond: parseInt(res.headers.get('X-Ratelimit-Delay-Second') || ''),
-            limitSecond: parseInt(res.headers.get('X-Ratelimit-Limit-Second') || ''),
-            remainingSecond: parseInt(res.headers.get('X-Ratelimit-Remaining-Second') || ''),
-            usedSecond: parseInt(res.headers.get('X-Ratelimit-Used-Second') || '')
+            delaySecond: parseInt(res.headers.get('X-Ratelimit-Delay-Second') ?? ''),
+            limitSecond: parseInt(res.headers.get('X-Ratelimit-Limit-Second') ?? ''),
+            remainingSecond: parseInt(res.headers.get('X-Ratelimit-Remaining-Second') ?? ''),
+            usedSecond: parseInt(res.headers.get('X-Ratelimit-Used-Second') ?? '')
           }
 
-          return res.json()
+          return await res.json()
         })
         .then(({ meta, results, features }) => {
-          if (meta?.status_code && results?.error) {
+          if (meta?.status_code !== undefined && results?.error !== undefined) {
             reject({
               ...results.error,
               statusCode: meta.status_code,

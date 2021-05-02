@@ -17,5 +17,5 @@ esbuild.build({
   logLevel: 'info',
   banner: {
     js: banner
-  },
+  }
 }).catch(() => process.exit(1))

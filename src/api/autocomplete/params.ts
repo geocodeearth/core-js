@@ -1,14 +1,14 @@
 // Params are a structured format for API params, which are converted to a Query
-export type Params = {
+export interface Params {
   lang?: string
   size?: number
-  sources?: (
+  sources?: Array<(
     'openstreetmap' |
     'openaddresses' |
     'geonames' |
     'whosonfirst'
-  )[]
-  layers?: (
+  )>
+  layers?: Array<(
     'address' |
     'borough' |
     'coarse' |
@@ -23,7 +23,7 @@ export type Params = {
     'region' |
     'street' |
     'venue'
-  )[]
+  )>
   focusPoint?: {
     lat: number
     lon: number
@@ -46,9 +46,9 @@ export type Params = {
 }
 
 // Params are converted to a Query, which is then used to generate a URL query string
-export type Query = {
-  api_key: string,
-  text: string,
+export interface Query {
+  api_key: string
+  text: string
   lang?: string
   size?: string
   layers?: string
