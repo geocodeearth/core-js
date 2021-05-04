@@ -52,24 +52,3 @@ $ npm run clean
 $ npm run lint
 $ npm run lint-fix # with auto fix
 ```
-
-
-
-test('foo', async () => {
-  // expect.assertions(1)
-  const autocomplete = createAutocomplete('ge-abcxyx', {
-    debounce: 300
-  })
-
-  // console.log(results)
-  const b = autocomplete('b')//.then(console.log, console.error)
-  const be = autocomplete('be')//.then(console.log, console.error)
-  // const berl = autocomplete('berl').then(console.log, console.error)
-  // const berlin = autocomplete('berlin').then(console.log, console.error)
-
-  await expect(b).resolves.toHaveProperty('skip', true)
-  await expect(be).resolves.toHaveProperty('skip', undefined)
-  // return Promise.allSettled([
-  //   expect(b).resolves.toEqual('error'),
-  //   expect(be).resolves.toEqual('results')
-})
