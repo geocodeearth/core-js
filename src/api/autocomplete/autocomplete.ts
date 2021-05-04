@@ -3,6 +3,7 @@ import { Params, createQuery } from './params'
 import { Result } from './result'
 import { Options } from '../../options'
 import { createURL } from '../../utils/url'
+import { APIError } from '../../error'
 
 const createAutocomplete = (
   apiKey: string,
@@ -24,6 +25,9 @@ const createAutocomplete = (
 
       fetch(url)
         .then(async res => {
+          const json = await res.json()
+
+          // rate limit info is returned in response headers
           result.rateLimit = {
             delaySecond: parseInt(res.headers.get('X-Ratelimit-Delay-Second') ?? ''),
             limitSecond: parseInt(res.headers.get('X-Ratelimit-Limit-Second') ?? ''),
@@ -31,17 +35,26 @@ const createAutocomplete = (
             usedSecond: parseInt(res.headers.get('X-Ratelimit-Used-Second') ?? '')
           }
 
-          return await res.json()
-        })
-        .then(({ meta, results, features }) => {
-          if (meta?.status_code !== undefined && results?.error !== undefined) {
-            reject({
-              ...results.error,
-              statusCode: meta.status_code,
-              rateLimit: result.rateLimit
-            })
+          // if the response is outside 200 range throw custom error to reject the promise
+          if (!res.ok) {
+            // Pelias errors
+            const { geocoding: { errors } = { errors: [] } } = json
+            if (errors.length > 0) {
+              throw new APIError('GeocodingError', res.status, result.rateLimit, ...errors)
+            }
+
+            // Rate limiter error
+            const { results: { error: { type, message } } = { error: { type: '', message: '' } } } = json
+            if (type.length > 0 && message.length > 0) {
+              throw new APIError(type, res.status, result.rateLimit, message)
+            }
+
+            throw new Error(`An unexpected error occured: ${JSON.stringify(json)}`)
           }
 
+          return json
+        })
+        .then(({ features }) => {
           if (current < requests) {
             resolve({ ...result, discard: true })
           } else {
