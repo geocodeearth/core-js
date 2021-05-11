@@ -1,5 +1,6 @@
 const esbuild = require('esbuild')
 const { version } = require('./package.json')
+const fse = require('fs-extra')
 
 const banner = `/**
 * Geocode Earth Core v${version}
@@ -8,9 +9,13 @@ const banner = `/**
 * @license MIT
 */`
 
+// clear out the dist folder
+const out = 'dist'
+fse.emptyDirSync(out)
+
 esbuild.build({
   entryPoints: ['src/geocode-earth-core.ts'],
-  outfile: 'dist/geocode-earth-core.esm.js',
+  outfile: `${out}/geocode-earth-core.esm.js`,
   format: 'esm',
   bundle: true,
   sourcemap: true,
