@@ -1,11 +1,11 @@
 const esbuild = require('esbuild')
-const pkg = require('./package.json')
+const { version } = require('./package.json')
 
 const banner = `/**
- * Geocode Earth Core v${pkg.version}
- * Copyright (c) ${new Date().getFullYear()} Cleared for Takeoff, Inc.
- *
- * @license MIT
+* Geocode Earth Core v${version}
+* Copyright (c) ${new Date().getFullYear()} Cleared for Takeoff, Inc.
+*
+* @license MIT
 */`
 
 esbuild.build({
