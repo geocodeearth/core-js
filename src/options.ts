@@ -3,5 +3,5 @@ export interface Options {
 }
 
 export const defaultOptions: Options = {
-  host: 'api.dev.geocode.earth'
+  host: 'api.geocode.earth'
 }
