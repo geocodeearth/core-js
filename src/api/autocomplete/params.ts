@@ -53,6 +53,7 @@ export interface Query {
   size?: string
   layers?: string
   sources?: string
+  client?: string
   ['boundary.country']?: string
   ['boundary.gid']?: string
   ['boundary.circle.lat']?: string
