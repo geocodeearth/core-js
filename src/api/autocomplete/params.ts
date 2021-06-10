@@ -2,28 +2,8 @@
 export interface Params {
   lang?: string
   size?: number
-  sources?: Array<(
-    'openstreetmap' |
-    'openaddresses' |
-    'geonames' |
-    'whosonfirst'
-  )>
-  layers?: Array<(
-    'address' |
-    'borough' |
-    'coarse' |
-    'country' |
-    'county' |
-    'localadmin' |
-    'locality' |
-    'macrocounty' |
-    'macroregion' |
-    'neighbourhood' |
-    'postalcode' |
-    'region' |
-    'street' |
-    'venue'
-  )>
+  sources?: string[]
+  layers?: string[]
   focusPoint?: {
     lat: number
     lon: number

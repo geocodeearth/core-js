@@ -1,6 +1,6 @@
 import validateApiKey from '../../utils/validate_api_key'
 import { Params, createQuery } from './params'
-import { Result } from './result'
+import { AutocompleteResult } from './result'
 import { Options } from '../../options'
 import { createURL } from '../../utils/url'
 import { APIError } from '../../error'
@@ -9,7 +9,7 @@ const createAutocomplete = (
   apiKey: string,
   params?: Params,
   options?: Options
-): (text: string) => Promise<Result> => {
+): (text: string) => Promise<AutocompleteResult> => {
   if (!validateApiKey(apiKey)) {
     throw new Error('Invalid API key specified.')
   }
@@ -17,11 +17,11 @@ const createAutocomplete = (
   // keep track of how many requests we’ve sent
   // for discarding out of order responses
   let requests = 0
-  return async (text: string): Promise<Result> => {
+  return async (text: string): Promise<AutocompleteResult> => {
     const current = requests = requests + 1
     return await new Promise((resolve, reject) => {
       const url = createURL('autocomplete', createQuery(apiKey, text, params), options).toString()
-      const result: Result = {}
+      const result: AutocompleteResult = {}
 
       fetch(url)
         .then(async res => {
