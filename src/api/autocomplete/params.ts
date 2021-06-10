@@ -46,7 +46,7 @@ export interface Params {
 }
 
 // Params are converted to a Query, which is then used to generate a URL query string
-export interface Query {
+interface Query {
   api_key: string
   text: string
   lang?: string
@@ -67,7 +67,7 @@ export interface Query {
   ['focus.point.lon']?: string
 }
 
-export const createQuery = (apiKey: string, text: string, params: Params = {}): Query => {
+export const createQuery = (apiKey: string, text: string, params: Params = {}): Record<string, string> => {
   const q: Query = {
     api_key: apiKey,
     text,
@@ -89,5 +89,5 @@ export const createQuery = (apiKey: string, text: string, params: Params = {}): 
   }
 
   // don’t return empty values (null & undefined) as to not have ?size=undefined in the actual URL query
-  return Object.fromEntries(Object.entries(q).filter(([_, v]) => v != null)) as Query
+  return Object.fromEntries(Object.entries(q).filter(([_, v]) => v != null)) as Record<string, string>
 }
