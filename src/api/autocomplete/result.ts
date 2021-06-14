@@ -8,4 +8,5 @@ export interface AutocompleteResult {
   features?: Feature[]
   discard?: boolean
   rateLimit?: RateLimit
+  warnings?: string[]
 }
