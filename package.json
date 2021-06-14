@@ -1,6 +1,6 @@
 {
   "name": "@geocodeearth/core-js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": "geocodeearth/core-js",
   "description": "Core API client for Geocode Earth",
   "browser": "dist/geocode-earth-core.esm.js",
