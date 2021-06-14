@@ -54,11 +54,11 @@ const createAutocomplete = (
 
           return json
         })
-        .then(({ features }) => {
+        .then(({ features, geocoding: { warnings } }) => {
           if (current < requests) {
             resolve({ ...result, discard: true })
           } else {
-            resolve({ ...result, features })
+            resolve({ ...result, features, warnings })
           }
         })
         .catch(reject)
