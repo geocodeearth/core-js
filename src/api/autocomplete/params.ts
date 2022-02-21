@@ -68,6 +68,6 @@ export const createQuery = (apiKey: string, text: string, params: Params = {}): 
     'boundary.rect.max_lon': params.boundary?.rect?.maxLon?.toString()
   }
 
-  // don’t return empty values (null & undefined) as to not have ?size=undefined in the actual URL query
-  return Object.fromEntries(Object.entries(q).filter(([_, v]) => v != null)) as Record<string, string>
+  // don’t return empty values (null, undefined, '') as to not have ?size=undefined or empty values in the actual URL query
+  return Object.fromEntries(Object.entries(q).filter(([_, v]) => v != null && v !== '')) as Record<string, string>
 }
