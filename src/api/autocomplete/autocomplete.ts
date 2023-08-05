@@ -20,7 +20,7 @@ const createAutocomplete = (
   return async (text: string): Promise<AutocompleteResult> => {
     const current = requests = requests + 1
     return await new Promise((resolve, reject) => {
-      const url = createURL('autocomplete', createQuery(apiKey, text, params), options).toString()
+      const url = createURL('autocomplete', createQuery(apiKey, text, params), options).toString() + '&enable_overture=true'
       const result: AutocompleteResult = {}
 
       fetch(url)
