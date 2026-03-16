@@ -63,7 +63,7 @@ export const createQuery = (apiKey: string, text: string, params: Params = {}): 
     'boundary.circle.lon': params.boundary?.circle?.lon?.toString(),
     'boundary.circle.radius': params.boundary?.circle?.lon?.toString(),
     'boundary.rect.min_lat': params.boundary?.rect?.minLat?.toString(),
-    'boundary.rect.max_lat': params.boundary?.rect?.maxLon?.toString(),
+    'boundary.rect.max_lat': params.boundary?.rect?.maxLat?.toString(),
     'boundary.rect.min_lon': params.boundary?.rect?.minLon?.toString(),
     'boundary.rect.max_lon': params.boundary?.rect?.maxLon?.toString()
   }
